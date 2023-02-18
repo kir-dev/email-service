@@ -1,0 +1,16 @@
+version: "3.2"
+services:
+  rabbitmq:
+    image: rabbitmq:3.8.25-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672     # amqp communication
+        - 15672:15672   # management UI
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - rabbitmq_email
+
+networks:
+  rabbitmq_email:
