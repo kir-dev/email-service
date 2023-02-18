@@ -1,15 +1,15 @@
 {
-  "name": "@email-service/sender",
+  "name": "@email-service/common",
   "version": "1.0.0",
-  "description": "Sender service for email system.",
+  "description": "Common files for services.",
   "license": "MIT",
   "author": "Kir-Dev",
-  "scripts": {
-    "start": "tsc && node index.js"
-  },
   "dependencies": {
-    "amqplib": "^0.10.3",
-    "@email-service/common": "1.0.0"
+    "amqplib": "^0.10.3"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "postinstall": "tsc --build"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.1",

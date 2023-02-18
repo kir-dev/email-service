@@ -2,7 +2,8 @@
   "private": true,
   "workspaces": [
     "packages/sender",
-    "packages/consumer"
+    "packages/consumer",
+    "packages/common"
   ],
   "devDependencies": {
     "eslint": "^8.34.0",

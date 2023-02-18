@@ -8,7 +8,8 @@
     "start": "tsc && node index.js"
   },
   "dependencies": {
-    "amqplib": "^0.10.3"
+    "amqplib": "^0.10.3",
+    "@email-service/common": "1.0.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.10.1",
