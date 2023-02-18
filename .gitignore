@@ -195,4 +195,6 @@ dist
 *.js
 *.d.ts
 
+token.json
+
 # End of https://www.toptal.com/developers/gitignore/api/node,yarn,macos
