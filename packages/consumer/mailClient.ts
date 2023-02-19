@@ -19,6 +19,9 @@ export class MailClient {
 
   sendEmail() {
     return (email: Email) =>
-      this.transporter!.sendMail({ ...email, from: process.env.FROM_EMAIL });
+      this.transporter!.sendMail({
+        ...email,
+        from: `${email.from || "Kir-Dev"} <${process.env.FROM_EMAIL}>`,
+      });
   }
 }

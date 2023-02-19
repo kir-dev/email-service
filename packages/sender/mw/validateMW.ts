@@ -27,5 +27,5 @@ export function validateMW() {
   };
 }
 
-const emailKeys: (keyof Email)[] = ["subject", "text", "html", "to"];
+const emailKeys: (keyof Email)[] = ["subject", "text", "html", "to", "from"];
 const requiredKeys: (keyof Email)[] = ["subject", "to"];
