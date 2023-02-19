@@ -5,7 +5,8 @@
   "license": "MIT",
   "author": "Kir-Dev",
   "dependencies": {
-    "amqplib": "^0.10.3"
+    "amqplib": "^0.10.3",
+    "dotenv": "^16.0.3"
   },
   "scripts": {
     "build": "tsc --build",

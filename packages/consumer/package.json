@@ -5,8 +5,8 @@
   "license": "MIT",
   "author": "Kir-Dev",
   "scripts": {
-    "start": "tsc && node index.js",
-    "dev": "nodemon index.ts"
+    "start": "tsc && node src/index.js",
+    "dev": "nodemon src/index.ts"
   },
   "dependencies": {
     "@email-service/common": "1.0.0",

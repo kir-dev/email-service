@@ -5,9 +5,9 @@
   "license": "MIT",
   "author": "Kir-Dev",
   "scripts": {
-    "start": "tsc && node index.js",
-    "dev": "nodemon index.ts",
-    "keygen": "tsc && node jwtgen.js",
+    "start": "tsc && node src/index.js",
+    "dev": "nodemon src/index.ts",
+    "keygen": "tsc && node src/jwtgen.js",
     "clean": "tsc --build --clean"
   },
   "dependencies": {

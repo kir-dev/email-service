@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-const keys: Key[] = require("../keys.json");
+const keys: Key[] = require("../../keys.json");
 
 export function authMW() {
   return (req: Request, res: Response, next: NextFunction) => {
