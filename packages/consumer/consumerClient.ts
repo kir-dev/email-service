@@ -11,16 +11,13 @@ export class ConsumerClient extends ClientBase {
         } catch (e) {
           console.log(e);
           console.error("Bad message format");
+          return;
         }
         if (!parsedMessage) {
           console.log("Parsed message is empty");
           return;
         }
-        callback({
-          subject: parsedMessage.subject,
-          text: parsedMessage.text,
-          to: parsedMessage.to,
-        }).then(() => {
+        callback(parsedMessage).then(() => {
           this.channel?.ack(msg);
         });
       })

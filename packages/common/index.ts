@@ -1,6 +1,7 @@
 export * from "./clientBase";
 export interface Email {
+  to: string;
   subject: string;
   text: string;
-  to: string;
+  html: string;
 }

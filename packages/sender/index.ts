@@ -1,7 +1,7 @@
 import { SenderClient } from "./senderClient";
 import express from "express";
 import bodyParser from "body-parser";
-import { validateMW } from "./mw/validate";
+import { validateMW } from "./mw/validateMW";
 import { sendMW } from "./mw/sendMW";
 import { authMW } from "./mw/authMW";
 require("dotenv").config();
