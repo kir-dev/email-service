@@ -11,4 +11,6 @@ const senderClient = new SenderClient();
 
 app.post("/send", validateMW(), sendMW(senderClient));
 
-app.listen(3001);
+const server = app.listen(3001);
+
+process.on("SIGINT", () => server.close());
