@@ -6,7 +6,7 @@
   "author": "Kir-Dev",
   "dependencies": {
     "amqplib": "^0.10.3",
-    "dotenv": "^16.0.3"
+    "env-var": "^7.3.0"
   },
   "scripts": {
     "build": "tsc --build",

@@ -1,15 +1,16 @@
 import { Auth } from "googleapis";
 import * as fs from "fs";
+import { config } from "./config/config";
 
-const tokenFileName = "token.json";
+const tokenFileName = config.OAUTH_TOKEN_FILE_NAME;
 
 export class OauthClient {
   private readonly client: Auth.OAuth2Client;
   constructor() {
     this.client = new Auth.OAuth2Client(
-      process.env.OAUTH_CLIENT_ID,
-      process.env.OAUTH_CLIENT_SECRET,
-      process.env.REDIRECT_URI
+      config.OAUTH_CLIENT_ID,
+      config.OAUTH_CLIENT_SECRET,
+      config.REDIRECT_URI
     );
     this.setupTokenListener();
     this.loadRefreshToken();

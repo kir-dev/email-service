@@ -1,15 +1,10 @@
 import { Channel, Connection, connect } from "amqplib";
-require("dotenv").config();
-
-const MQ_EXCHANGE = process.env.MQ_EXCHANGE || "";
-const MQ_QUEUE = process.env.MQ_QUEUE || "";
-const MQ_ROUTING_KEY = process.env.MQ_ROUTING_KEY || "";
-const MQ_CONNECTION_URL = process.env.MQ_CONNECTION_URL || "";
+import { config } from "./config";
 
 export class ClientBase {
-  protected readonly queue = MQ_QUEUE;
-  protected readonly exchange = MQ_EXCHANGE;
-  protected readonly routingKey = MQ_ROUTING_KEY;
+  protected readonly queue = config.MQ_QUEUE;
+  protected readonly exchange = config.MQ_EXCHANGE;
+  protected readonly routingKey = config.MQ_ROUTING_KEY;
   protected connection: Connection | undefined;
   protected channel: Channel | undefined;
   constructor() {
@@ -27,7 +22,7 @@ export class ClientBase {
   }
 
   async setup() {
-    this.connection = await connect(MQ_CONNECTION_URL);
+    this.connection = await connect(config.MQ_CONNECTION_URL);
     this.channel = await this.connection.createChannel();
     await Promise.all([
       this.channel.assertExchange(this.exchange, "direct"),

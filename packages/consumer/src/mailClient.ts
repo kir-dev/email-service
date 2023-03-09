@@ -1,5 +1,6 @@
 import { createTransport, Transporter } from "nodemailer";
 import { Email } from "@email-service/common";
+import { config } from "./config/config";
 
 export class MailClient {
   private transporter: Transporter | undefined;
@@ -9,9 +10,9 @@ export class MailClient {
       auth: {
         type: "OAuth2",
         accessToken,
-        user: process.env.FROM_EMAIL,
-        clientId: process.env.OAUTH_CLIENT_ID,
-        clientSecret: process.env.OAUTH_CLIENT_SECRET,
+        user: config.FROM_EMAIL,
+        clientId: config.OAUTH_CLIENT_ID,
+        clientSecret: config.OAUTH_CLIENT_SECRET,
         refreshToken: refreshToken,
       },
     });
@@ -21,7 +22,7 @@ export class MailClient {
     return (email: Email) =>
       this.transporter!.sendMail({
         ...email,
-        from: `${email.from || "Kir-Dev"} <${process.env.FROM_EMAIL}>`,
+        from: `${email.from || "Kir-Dev"} <${config.FROM_EMAIL}>`,
       });
   }
 }

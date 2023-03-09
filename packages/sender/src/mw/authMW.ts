@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { config } from "../config/config";
 const keys: Key[] = require("../../keys.json");
 
 export function authMW() {
@@ -10,10 +11,7 @@ export function authMW() {
     }
     const token = authHeader.replace("Bearer ", "");
     try {
-      const decoded = jwt.verify(
-        token,
-        process.env.JWT_SECRET || "unprotected"
-      ) as JWTPayload;
+      const decoded = jwt.verify(token, config.JWT_SECRET) as JWTPayload;
       console.info(`Authorizing ${decoded.name}`);
       if (keys.find((k) => k.key === token)) {
         console.info("OK");
