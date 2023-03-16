@@ -6,11 +6,14 @@
   "author": "Kir-Dev",
   "scripts": {
     "start": "tsc && node src/index.js",
+    "build": "tsc --build",
+    "start:prod": "node dist/index.js",
     "dev": "nodemon src/index.ts"
   },
   "dependencies": {
-    "@email-service/common": "1.0.0",
+    "@email-service/common": "*",
     "amqplib": "^0.10.3",
+    "dotenv": "^16.0.3",
     "env-var": "^7.3.0",
     "googleapis": "^111.0.0",
     "nodemailer": "^6.9.1"
@@ -22,5 +25,8 @@
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
+  },
+  "resolutions": {
+    "@email-service/common": "../common/dist"
   }
 }

@@ -5,6 +5,7 @@ import { MailClient } from "./mailClient";
 require("dotenv").config();
 
 function bootstrap() {
+  console.log("Starting consumer...");
   const oauth = new OauthClient();
   const consumer = new ConsumerClient();
   new Webserver(oauth);

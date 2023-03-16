@@ -3,6 +3,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build": "yarn workspaces -p run build",
+    "build:common": "yarn workspace @email-service/common build"
+  },
   "devDependencies": {
     "eslint": "^8.34.0",
     "prettier": "^2.8.4"
