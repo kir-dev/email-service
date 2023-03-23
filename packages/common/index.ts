@@ -1,8 +1,13 @@
 export * from "./clientBase";
-export interface Email {
-  to: string;
-  from: string;
-  subject: string;
-  text: string;
-  html: string;
-}
+export * from "./validateRequest";
+import { Static, Type } from "@sinclair/typebox";
+
+export const Email = Type.Object({
+  subject: Type.String(),
+  to: Type.String(),
+  from: Type.Optional(Type.String()),
+  text: Type.Optional(Type.String()),
+  html: Type.Optional(Type.String()),
+});
+
+export type Email = Static<typeof Email>;

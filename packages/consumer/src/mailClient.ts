@@ -16,9 +16,13 @@ export class MailClient {
         refreshToken: refreshToken,
       },
     });
+    console.log("Transporter created!");
   }
 
-  sendEmail() {
+  public sendEmail() {
+    if (!this.transporter) {
+      throw new Error("Transporter is not initialized");
+    }
     return (email: Email) =>
       this.transporter!.sendMail({
         ...email,

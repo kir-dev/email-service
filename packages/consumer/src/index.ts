@@ -14,11 +14,11 @@ function bootstrap() {
   if (oauth.isSetupCompleted()) {
     oauth
       .getTokens()
-      .then(({ accessToken, refreshToken }) =>
-        mail.setupTransporter(accessToken, refreshToken)
-      )
+      .then(({ accessToken, refreshToken }) => {
+        mail.setupTransporter(accessToken, refreshToken);
+        consumer.consume(mail.sendEmail());
+      })
       .catch(console.error);
-    setTimeout(() => consumer.consume(mail.sendEmail()), 5000);
   }
 }
 
