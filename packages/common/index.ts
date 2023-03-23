@@ -1,6 +1,6 @@
 export * from "./clientBase";
 export * from "./validateRequest";
-import { Static, Type } from "@sinclair/typebox";
+import { Static, TSchema, Type } from "@sinclair/typebox";
 
 export const Email = Type.Object({
   subject: Type.String(),
@@ -11,3 +11,14 @@ export const Email = Type.Object({
 });
 
 export type Email = Static<typeof Email>;
+
+export type QueuedMessage<T> = {
+  ttl: number;
+  message: T;
+};
+
+export const QueuedMessage = <T extends TSchema>(schema: T) =>
+  Type.Object({
+    ttl: Type.Number(),
+    message: schema,
+  });

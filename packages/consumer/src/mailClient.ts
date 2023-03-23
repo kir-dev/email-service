@@ -23,10 +23,12 @@ export class MailClient {
     if (!this.transporter) {
       throw new Error("Transporter is not initialized");
     }
-    return (email: Email) =>
-      this.transporter!.sendMail({
+    return async (email: Email) => {
+      await this.transporter!.sendMail({
         ...email,
         from: `${email.from || "Kir-Dev"} <${config.FROM_EMAIL}>`,
       });
+      console.log("Email sent!", email.subject, email.to);
+    };
   }
 }
