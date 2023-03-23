@@ -8,6 +8,8 @@ export function sendMW(client: SenderClient) {
     data.forEach((email) => {
       client.publish(email);
     });
-    res.send();
+    res.json({
+      message: "Emails were placed in the queue.",
+    });
   };
 }

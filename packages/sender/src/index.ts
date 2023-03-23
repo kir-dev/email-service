@@ -4,14 +4,15 @@ import bodyParser from "body-parser";
 import { validateMW } from "./mw/validateMW";
 import { sendMW } from "./mw/sendMW";
 import { authMW } from "./mw/authMW";
-require("dotenv").config();
+import { loginMW } from "./mw/loginMW";
 
 const app = express();
 app.use(bodyParser.json());
 
 const senderClient = new SenderClient();
 
-app.post("/send", authMW(), validateMW(), sendMW(senderClient));
+app.post("/login", loginMW);
+app.post("/send", authMW, validateMW(), sendMW(senderClient));
 
 const server = app.listen(3001);
 

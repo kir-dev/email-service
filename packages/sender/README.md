@@ -16,7 +16,7 @@ Make a `POST` request to `/send` route with an object or an array of objects def
   "from": "My App",
   "subject": "Example Email",
   "text": "Plain text if you don't need HTML",
-  "html": "<h1>Syntactically correct HTML code<h2>"
+  "html": "<h1>Syntactically correct HTML code</h1>"
 }
 ```
 
