@@ -13,7 +13,10 @@ export class Webserver {
     try {
       const query = parse(req.url!, true).query;
       const code = query.code;
-      if (code && !Array.isArray(code)) this.oauthClient.exchangeCode(code);
+      if (code && !Array.isArray(code))
+        this.oauthClient.exchangeCode(code).then(() => {
+          console.log("Successfully exchanged code!");
+        });
     } catch (e) {
       console.error("Failed to get query params!");
     }

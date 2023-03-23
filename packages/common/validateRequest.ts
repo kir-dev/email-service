@@ -102,3 +102,12 @@ export const validateQuery = <TQuery extends TSchema>(validate: TQuery) =>
   validateRequest({ query: validate });
 export const validateBody = <TBody extends TSchema>(validate: TBody) =>
   validateRequest({ body: validate });
+
+export const basicValidator = <T extends TSchema>(
+  schema: T
+): ((req: any) => boolean) => {
+  const validate = TypeCompiler.Compile(schema);
+  return (req: any) => {
+    return validate.Check(req);
+  };
+};

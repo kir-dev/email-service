@@ -2,7 +2,9 @@ import { Auth } from "googleapis";
 import * as fs from "fs";
 import { config } from "./config/config";
 
-const tokenFileName = config.OAUTH_TOKEN_FILE_NAME;
+//TODO: Saving a token like this violates the statelessness principle of Microservices
+//Instead, we should save the token in a database, but for the sake of simplicity, we'll save it in a file
+const tokenFileName = "token.json";
 
 export class OauthClient {
   private readonly client: Auth.OAuth2Client;

@@ -1,9 +1,10 @@
-import { ClientBase, Email } from "@email-service/common";
+import { basicValidator, ClientBase, Email } from "@email-service/common";
 
 export class ConsumerClient extends ClientBase {
+  public validate = basicValidator(Email);
   consume(callback: (email: Email) => Promise<void>) {
     this.channel
-      ?.consume(this.queue, (msg) => {
+      ?.consume(this.queue, async (msg) => {
         if (!msg) return;
         let parsedMessage: Email | undefined;
         try {
@@ -13,13 +14,17 @@ export class ConsumerClient extends ClientBase {
           console.error("Bad message format");
           return;
         }
-        if (!parsedMessage) {
-          console.log("Parsed message is empty");
+        if (!parsedMessage || !this.validate(parsedMessage)) {
+          console.error("Bad message format");
           return;
         }
-        callback(parsedMessage).then(() => {
+        try {
+          await callback(parsedMessage);
           this.channel?.ack(msg);
-        });
+        } catch (e) {
+          console.error("Could not send email!", e);
+          this.channel?.nack(msg);
+        }
       })
       .then(() => {
         console.info("Consuming started!");
