@@ -6,6 +6,7 @@ const tokenFileName = config.OAUTH_TOKEN_FILE_NAME;
 
 export class OauthClient {
   private readonly client: Auth.OAuth2Client;
+  private setupCompleted = false;
   constructor() {
     this.client = new Auth.OAuth2Client(
       config.OAUTH_CLIENT_ID,
@@ -26,10 +27,12 @@ export class OauthClient {
     });
   }
 
-  async getTokens() {
+  async getTokens(): Promise<{ accessToken: string; refreshToken: string }> {
     const tokenResponse = await this.client.getAccessToken();
     const refreshToken = this.client.credentials.refresh_token;
-    return { accessToken: tokenResponse.token!, refreshToken: refreshToken! };
+    if (!tokenResponse.token) throw new Error("No access token found");
+    if (!refreshToken) throw new Error("No refresh token found");
+    return { accessToken: tokenResponse.token, refreshToken: refreshToken };
   }
 
   printAuthUrl() {
@@ -51,6 +54,7 @@ export class OauthClient {
       this.client.refreshAccessToken().then(() => {
         console.info("Access Token refreshed");
       });
+      this.setupCompleted = true;
     } catch (e) {
       console.info("Could not parse token file, prompting login...");
       this.printAuthUrl();
@@ -60,5 +64,9 @@ export class OauthClient {
   async exchangeCode(code: string) {
     const { tokens } = await this.client.getToken(code);
     this.client.setCredentials(tokens);
+  }
+
+  public isSetupCompleted() {
+    return this.setupCompleted;
   }
 }

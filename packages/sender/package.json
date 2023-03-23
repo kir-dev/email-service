@@ -5,10 +5,10 @@
   "license": "MIT",
   "author": "Kir-Dev",
   "scripts": {
+    "start": "node --es-module-specifier-resolution=node ./dist/index.js",
     "build": "tsc --build",
-    "start": "tsc && node src/index.js",
-    "start:prod": "node dist/index.js",
-    "dev": "nodemon src/index.ts",
+    "start:prod": "node --es-module-specifier-resolution=node ./dist/index.js",
+    "dev": "nodemon -x node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts",
     "keygen": "tsc && node src/jwtgen.js",
     "clean": "tsc --build --clean"
   },

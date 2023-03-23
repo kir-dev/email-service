@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { config } from "../config/config";
-const keys: Key[] = require("../../keys.json");
+const keys: Key[] | undefined = require("../../keys.json");
 
 export function authMW() {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -11,9 +11,10 @@ export function authMW() {
     }
     const token = authHeader.replace("Bearer ", "");
     try {
+      console.log(config.JWT_SECRET);
       const decoded = jwt.verify(token, config.JWT_SECRET) as JWTPayload;
       console.info(`Authorizing ${decoded.name}`);
-      if (keys.find((k) => k.key === token)) {
+      if (keys && keys.find((k) => k.key === token)) {
         console.info("OK");
         return next();
       }

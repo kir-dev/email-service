@@ -5,9 +5,13 @@
   ],
   "scripts": {
     "build": "yarn workspaces -p run build",
-    "build:common": "yarn workspace @email-service/common build"
+    "build:common": "yarn workspace @email-service/common build",
+    "dev:consumer": "yarn workspace @email-service/consumer dev",
+    "dev:sender": "yarn workspace @email-service/sender dev",
+    "dev": "concurrently --names \"CONSUMER,SENDER\" -c \"bgBlue,bgYellow\" \"yarn dev:consumer\" \"yarn dev:sender\""
   },
   "devDependencies": {
+    "concurrently": "^7.6.0",
     "eslint": "^8.34.0",
     "prettier": "^2.8.4"
   }

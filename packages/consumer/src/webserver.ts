@@ -1,6 +1,7 @@
 import { OauthClient } from "./oauthClient";
 import { createServer, RequestListener, Server } from "http";
 import { parse } from "url";
+import { config } from "./config/config";
 
 export class Webserver {
   private readonly oauthClient: OauthClient;
@@ -25,7 +26,8 @@ export class Webserver {
   }
 
   open() {
-    this.server.listen(3002);
+    this.server.listen(config.PORT);
+    console.log(`Listening on port ${config.PORT}`);
     process.on("SIGINT", () => this.server.close());
   }
 }

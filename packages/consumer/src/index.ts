@@ -7,16 +7,19 @@ require("dotenv").config();
 function bootstrap() {
   console.log("Starting consumer...");
   const oauth = new OauthClient();
-  const consumer = new ConsumerClient();
+  //const consumer = new ConsumerClient();
   new Webserver(oauth);
   const mail = new MailClient();
-  oauth
-    .getTokens()
-    .then(({ accessToken, refreshToken }) =>
-      mail.setupTransporter(accessToken, refreshToken)
-    )
-    .catch(console.error);
-  setTimeout(() => consumer.consume(mail.sendEmail()), 5000);
+
+  if (oauth.isSetupCompleted()) {
+    oauth
+      .getTokens()
+      .then(({ accessToken, refreshToken }) =>
+        mail.setupTransporter(accessToken, refreshToken)
+      )
+      .catch(console.error);
+  }
+  //setTimeout(() => consumer.consume(mail.sendEmail()), 5000);
 }
 
 bootstrap();

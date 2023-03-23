@@ -2,6 +2,7 @@ import { get } from "env-var";
 require("dotenv").config();
 
 export const config = {
+  PORT: get("PORT").default("8080").asPortNumber(),
   OAUTH_CLIENT_ID: get("OAUTH_CLIENT_ID").default("").asString(),
   OAUTH_CLIENT_SECRET: get("OAUTH_CLIENT_SECRET").default("").asString(),
   REDIRECT_URI: get("REDIRECT_URI").default("").asString(),
