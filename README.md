@@ -3,6 +3,26 @@
 This repository is an example of how a [microservice](https://en.wikipedia.org/wiki/Microservices) architecture can be implemented.
 It's a simple solution with a single endpoint that expect an HTML email which will be sent to a list of recipients.
 
+## Development
+
+To start the development environment, you need to have [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed.
+
+#### To start the RabbitMQ service:
+
+RabbitMQ admin: [localhost:15672](localhost:15672) (user: guest pass: guest)
+
+```bash
+docker-compose up -d rabbitmq
+```
+
+#### To start the services
+
+Start the sender and receiver services concurrently:
+
+```bash
+yarn dev
+```
+
 ## The architecture
 
 ```mermaid
@@ -27,7 +47,7 @@ The sender is a simple [Node.js](https://nodejs.org/en/) application that expose
 }
 ```
 
-Make a `POST` request to `/send` route with an object or an array of objects defined above.
+Make a `POST` request to `/send` route with an object or an array of objects defined above to place the emails onto the queue.
 
 See the sender [README](packages/sender/README.md) for more details.
 
@@ -41,5 +61,7 @@ If a service dies or is overloaded, the emails will be queued and sent when the 
 ### The reciver
 
 The reciver is a simple [Node.js](https://nodejs.org/en/) application that will consume the messages from the queue and send the emails with [Nodemailer](https://nodemailer.com/about/).
+
+If the email sending fails, the message will be requeued and retried until it succeeds, or reaches a predefined resend TTL counter, after which it will be discarded. 
 
 See the reciver [README](packages/reciver/README.md) for more details.
