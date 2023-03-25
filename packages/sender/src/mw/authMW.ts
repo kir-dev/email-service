@@ -1,17 +1,16 @@
 import { NextFunction, Request, Response } from "express";
-import { decodeToken } from "../token";
+import { config } from "../config/config";
 
 export const authMW = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.header("Authorization");
   if (!authHeader) return res.status(401).send("Unauthorized");
   const token = authHeader.replace("Bearer ", "").trim();
   try {
-    const decoded = decodeToken(token);
-    if (!decoded) return res.status(401).send("Unauthorized");
+    if (!token) return res.status(401).send("Unauthorized");
 
-    console.info(`Authorizing ${decoded.name}`);
+    console.info(`Authorizing [${token}]`);
 
-    if (decoded.name === "admin") {
+    if (config.LOGIN_TOKENS.includes(token)) {
       console.info("OK");
       return next();
     }

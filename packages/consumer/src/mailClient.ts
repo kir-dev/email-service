@@ -28,7 +28,7 @@ export class MailClient {
         ...email,
         from: `${email.from || "Kir-Dev"} <${config.FROM_EMAIL}>`,
       });
-      console.log("Email sent!", email.subject, email.to);
+      console.log(`Email sent: [${email.subject}] <${email.to}>`);
     };
   }
 }
