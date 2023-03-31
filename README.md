@@ -29,7 +29,7 @@ yarn dev
     flowchart LR
     A(((Send\nRequest))) --> B[Sender]
     B --> C[RabitMQ]
-    C --> D[Reciver]
+    C --> D[Receiver]
     D --> E(((Clients)))
 ```
 
@@ -58,10 +58,10 @@ This ensures that failing services will not affect the email sending process.
 
 If a service dies or is overloaded, the emails will be queued and sent when the service is back online.
 
-### The reciver
+### The receiver
 
-The reciver is a simple [Node.js](https://nodejs.org/en/) application that will consume the messages from the queue and send the emails with [Nodemailer](https://nodemailer.com/about/).
+The receiver is a simple [Node.js](https://nodejs.org/en/) application that will consume the messages from the queue and send the emails with [Nodemailer](https://nodemailer.com/about/).
 
 If the email sending fails, the message will be requeued and retried until it succeeds, or reaches a predefined resend TTL counter, after which it will be discarded. 
 
-See the reciver [README](packages/reciver/README.md) for more details.
+See the receiver [README](packages/receiver/README.md) for more details.
