@@ -5,13 +5,16 @@
   "license": "MIT",
   "author": "Kir-Dev",
   "scripts": {
-    "start": "tsc && node index.js",
-    "dev": "nodemon index.ts"
+    "start": "node --es-module-specifier-resolution=node ./dist/index.js",
+    "build": "tsc --build",
+    "start:prod": "node --es-module-specifier-resolution=node ./dist/index.js",
+    "dev": "nodemon -x node --no-warnings --experimental-specifier-resolution=node --loader ts-node/esm src/index.ts"
   },
   "dependencies": {
-    "@email-service/common": "1.0.0",
+    "@email-service/common": "*",
     "amqplib": "^0.10.3",
     "dotenv": "^16.0.3",
+    "env-var": "^7.3.0",
     "googleapis": "^111.0.0",
     "nodemailer": "^6.9.1"
   },
@@ -22,5 +25,8 @@
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
+  },
+  "resolutions": {
+    "@email-service/common": "../common/dist"
   }
 }

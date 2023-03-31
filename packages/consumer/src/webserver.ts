@@ -1,6 +1,7 @@
 import { OauthClient } from "./oauthClient";
 import { createServer, RequestListener, Server } from "http";
 import { parse } from "url";
+import { config } from "./config/config";
 
 export class Webserver {
   private readonly oauthClient: OauthClient;
@@ -12,7 +13,10 @@ export class Webserver {
     try {
       const query = parse(req.url!, true).query;
       const code = query.code;
-      if (code && !Array.isArray(code)) this.oauthClient.exchangeCode(code);
+      if (code && !Array.isArray(code))
+        this.oauthClient.exchangeCode(code).then(() => {
+          console.log("Successfully exchanged code!");
+        });
     } catch (e) {
       console.error("Failed to get query params!");
     }
@@ -25,7 +29,8 @@ export class Webserver {
   }
 
   open() {
-    this.server.listen(3002);
+    this.server.listen(config.PORT);
+    console.log(`Listening on port ${config.PORT}`);
     process.on("SIGINT", () => this.server.close());
   }
 }

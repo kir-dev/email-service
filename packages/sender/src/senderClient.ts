@@ -1,10 +1,10 @@
-import { ClientBase, Email } from "@email-service/common";
+import { ClientBase, Email, QueuedMessage } from "@email-service/common";
 
 export class SenderClient extends ClientBase {
-  publish(email: Email) {
+  publish(email: QueuedMessage<Email>) {
     this.channel?.publish(
       this.exchange,
-      "email",
+      this.routingKey,
       Buffer.from(JSON.stringify(email))
     );
   }

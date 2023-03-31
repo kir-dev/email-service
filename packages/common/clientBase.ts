@@ -1,8 +1,10 @@
 import { Channel, Connection, connect } from "amqplib";
+import { config } from "./config";
 
 export class ClientBase {
-  protected readonly queue = "email_queue";
-  protected readonly exchange = "email_exchange";
+  protected readonly queue = config.MQ_QUEUE;
+  protected readonly exchange = config.MQ_EXCHANGE;
+  protected readonly routingKey = config.MQ_ROUTING_KEY;
   protected connection: Connection | undefined;
   protected channel: Channel | undefined;
   constructor() {
@@ -20,7 +22,7 @@ export class ClientBase {
   }
 
   async setup() {
-    this.connection = await connect("amqp://localhost");
+    this.connection = await connect(config.MQ_CONNECTION_URL);
     this.channel = await this.connection.createChannel();
     await Promise.all([
       this.channel.assertExchange(this.exchange, "direct"),
